@@ -1,0 +1,21 @@
+extends layout
+block button
+  a(class="button" href="/add-flight") Add Flight
+
+block main
+  main
+    if flights.length === 0
+      p You're not tracking any flights. Add a flight to track.
+    else
+      each flight in flights
+        div(class="card")
+          img(src=`images/${flight.destinationCode}.jpg`, alt=flight.destinationCode)
+          div(class="card-info")
+            div
+              div(class="split-elements")
+                h2= `${flight.departureCode} to ${flight.destinationCode}`
+                a(class="edit" href=`/flights/${flight.id}/edit`) Edit
+              p(class="airline")= flight.airline
+            div(class="split-elements")
+              p(class="flight-number")= flight.flightNumber
+              p(class="departure-time")= `Departs at ${flight.flightTime}`
