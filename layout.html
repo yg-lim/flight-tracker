@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Travel App Layout</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/public/stylesheets/application.css">
+</head>
+<body>
+  <header>
+    <h1>
+      Flight Tracker
+    </h1>
+    <a class="button" href="/add-flight">Add Flight</a>
+  </header>
+  <main>
+    <ul class="flash">
+      <li class="error">error message</li>
+      <li class="success">success message</li>
+      <li class="info">info message</li>
+    </ul>
+    <div class="card">
+      <img src="/public/images/los-angeles.jpg" alt="Los Angeles Skyline">
+      <div class="card-info">
+        <div>
+          <div class="split-elements">
+            <h2>San Francisco to Los Angeles</h2>
+            <a class="edit" href="/:flightNumber/edit">Edit</a>
+          </div>
+          <p class="airline">Delta</p>
+        </div>
+        <div class="split-elements">
+          <p class="flight-number">DL 992</p>
+          <p class="departure-time">Departs at 8:45 AM</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

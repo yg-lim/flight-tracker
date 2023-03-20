@@ -1,0 +1,23 @@
+doctype html
+html(lang="en-US")
+  head
+    title Travel App
+    meta(charset="utf-8")
+    link(rel="stylesheet" href="/stylesheets/application.css")
+  body
+    header
+      h1 Flight Tracker
+      a(class="button" href="/add-flight") Add Flight
+    main
+      div(class="card")
+        img(src=`images/los-angeles.jpg`, alt="los-angeles")
+        div(class="card-info")
+          div
+            div(class="split-elements")
+              h2 San Francisco to Los Angeles
+              a(class="edit" href="/flightNumber/edit") Edit
+            p(class="airline") Delta
+          div(class="split-elements")
+            p(class="flight-number") DL 992
+            p(class="departure-time") Departs at 8:45 AM
+          
