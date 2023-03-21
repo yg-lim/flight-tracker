@@ -2,18 +2,18 @@ extends layout
 
 block main
   h2 Add Flight
-  form(action="/add-flight" method="POST")
+  form(action="/flights" method="POST")
     fieldset(class="controls-1")
       dl(class="departureCode right-padding")
-        dt
-          label(for="departureCode") Departure Code
-        dd
-          input(type="text" name="departureCode" id="departureCode")
-      dl(class="desitnationCode left-padding")
         dt
           label(for="departureCode") Departure Airport
         dd
           input(type="text" name="departureCode" id="departureCode")
+      dl(class="desitnationCode left-padding")
+        dt
+          label(for="destinationCode") Destination Airport
+        dd
+          input(type="text" name="destinationCode" id="destinationCode")
     fieldset(class="controls-2")
       dl(class="airline right-padding")
         dt
