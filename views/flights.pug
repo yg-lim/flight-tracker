@@ -4,6 +4,7 @@ block button
 
 block main
   main
+    h2 Tracked Flights
     if flights.length === 0
       p You're not tracking any flights. Add a flight to track.
     else
@@ -13,7 +14,7 @@ block main
           div(class="card-info")
             div
               div(class="split-elements")
-                h2= `${flight.departureCode} to ${flight.destinationCode}`
+                h3= `${flight.departureCode} to ${flight.destinationCode}`
                 a(class="edit" href=`/flights/${flight.id}/edit`) Edit
               p(class="airline")= flight.airline
             div(class="split-elements")

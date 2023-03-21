@@ -1,4 +1,35 @@
 extends layout
 
 block main
-  form(action)
+  h2 Add Flight
+  form(action="/add-flight" method="POST")
+    fieldset(class="controls-1")
+      dl(class="departureCode right-padding")
+        dt
+          label(for="departureCode") Departure Code
+        dd
+          input(type="text" name="departureCode" id="departureCode")
+      dl(class="desitnationCode left-padding")
+        dt
+          label(for="departureCode") Departure Airport
+        dd
+          input(type="text" name="departureCode" id="departureCode")
+    fieldset(class="controls-2")
+      dl(class="airline right-padding")
+        dt
+          label(for="airline") Airline
+        dd
+          input(type="text" name="airline" id="airline")
+      dl(class="flightNumber both-padding")
+        dt
+          label(for="flightNumber") Flight Number
+        dd
+          input(type="text" name="flightNumber" id="flightNumber")
+      dl(class="flightTime left-padding")
+        dt
+          label(for="flightTime") Flight Time
+        dd
+          input(type="datetime" name="flightTime" id="flightTime")
+    fieldset(class="buttons")
+      a(href="/") Go back
+      input(type="submit" value="Add Flight")

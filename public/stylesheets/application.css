@@ -35,7 +35,7 @@ h1 {
 }
 
 main {
-  margin-top: 24px;
+  margin: 48px auto;
 }
 
 .card {
@@ -71,6 +71,11 @@ main {
 }
 
 h2 {
+  text-align: center;
+  color: #375CDD;
+}
+
+h3 {
   margin: 0;
   font-weight: 600;
 }
@@ -85,7 +90,7 @@ p {
   margin: 0;
 }
 
-.airline {
+p.airline {
   color: gray;
   font-size: 1rem;
   margin: 0.5rem 0;
@@ -122,4 +127,98 @@ p {
 .info {
   background-color: lightgoldenrodyellow;
   color: darkgoldenrod;
+}
+
+form {
+  margin: 48px auto;
+  box-sizing: border-box;
+}
+
+form * {
+  box-sizing: border-box;
+}
+
+fieldset {
+  border: none;
+  margin: 8px 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-block-start: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-block-end: 0;
+}
+
+fieldset * {
+  margin: 0;
+  padding: 0;
+}
+
+.controls-1 {
+  display: flex;
+}
+
+.controls-1 dl {
+  width: 50%;
+}
+
+.controls-2 {
+  display: flex;
+}
+
+.controls-2 .airline {
+  width: 50%;
+}
+
+.controls-2 .flightNumber {
+  width: 25%;
+}
+
+.controls-2 .flightTime {
+  width: 25%;
+}
+
+.right-padding {
+  padding-right: 8px;
+}
+
+.left-padding {
+  padding-left: 8px;
+}
+
+.both-padding {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+input[type="text"], input[type="datetime"] {
+  padding: 8px;
+  margin: 4px 0;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+input[type="submit"] {
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #375CDD;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 12px;
+  border: none;
+}
+
+.buttons a {
+  text-decoration: none;
+  border-bottom: #375CDD 1px solid;
+}
+
+.buttons a:visited {
+  color: #375CDD;
 }
