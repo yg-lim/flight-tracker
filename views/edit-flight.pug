@@ -1,8 +1,8 @@
 extends layout
 
 block main
-  h2 Add Flight
-  form(action="/flights" method="POST" id="add")
+  h2 Edit Flight
+  form(action=`/flights/${id}/edit` method="POST" id="edit")
     fieldset(class="controls-1")
       dl(class="departureCode right-padding")
         dt
@@ -32,4 +32,4 @@ block main
           input(type="datetime" name="flightTime" id="flightTime" value=flightTime)
     fieldset(class="buttons")
       a(href="/") Go back
-      input(type="submit" value="Add Flight")
+      input(type="submit" value="Save Changes")

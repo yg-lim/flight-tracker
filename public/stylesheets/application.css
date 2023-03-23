@@ -166,15 +166,15 @@ fieldset * {
   display: flex;
 }
 
-.controls-2 .airline {
+.airline {
   width: 50%;
 }
 
-.controls-2 .flightNumber {
+.flightNumber {
   width: 25%;
 }
 
-.controls-2 .flightTime {
+.flightTime {
   width: 25%;
 }
 
