@@ -9,4 +9,11 @@ html(lang="en-US")
       h1 Flight Tracker
       block button
 
-    block main
+    main
+      - let kinds = Object.keys(flash || {});
+      if kinds.length > 0
+        ul(class="flash")
+          each kind in kinds
+            each message in flash[kind]
+              li(class=kind)= message
+      block main

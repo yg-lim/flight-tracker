@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <title>Add Flight</title>
+  <title>Travel App</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="public/stylesheets/application.css">
+  <link rel="stylesheet" href="/public/stylesheets/application.css">
 </head>
 <body>
+  <header>
+    <h1>
+      Flight Tracker
+    </h1>
+  </header>
   <main>
-    <h2>Add Flight</h2>
-    <form action="/add-flight" method="POST">
+    <h2>Edit Flight</h2>
+    <form action="/flights/1/edit" method="POST">
       <fieldset class="controls-1">
         <dl class="departureCode right-padding">
           <dt>
@@ -55,7 +60,7 @@
       </fieldset>
       <fieldset class="buttons">
         <a href="/">Go back</a>
-        <input type="submit" value="Add Flight">
+        <input type="submit" value="Save Changes">
       </fieldset>
     </form>
   </main>
