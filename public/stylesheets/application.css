@@ -166,16 +166,16 @@ fieldset * {
   display: flex;
 }
 
-.airline {
+.quarter-width {
+  width: 25%;
+}
+
+.half-width {
   width: 50%;
 }
 
-.flightNumber {
-  width: 25%;
-}
-
-.flightTime {
-  width: 25%;
+.full-width {
+  width: 100%;
 }
 
 .right-padding {
@@ -189,6 +189,10 @@ fieldset * {
 .both-padding {
   padding-left: 8px;
   padding-right: 8px;
+}
+
+#edit-form dl {
+  margin-bottom: 12px;
 }
 
 input[type="text"], input[type="datetime"] {
@@ -221,4 +225,22 @@ input[type="submit"] {
 
 .buttons a:visited {
   color: #375CDD;
+}
+
+#edit-form {
+  margin-top: 12px;
+}
+
+#delete-form {
+  margin: 0;
+  text-align: right;
+  margin-top: 48px;
+}
+
+#delete-form input[type="submit"] {
+  color: red;
+  padding: 0;
+  background-color: white;
+  border-radius: 0;
+  border-bottom: red 1px solid;
 }

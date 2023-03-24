@@ -3,12 +3,13 @@ const morgan = require("morgan");
 const session = require("express-session");
 const flash = require("express-flash");
 const { body, validationResult } = require("express-validator");
+const store = require("connect-loki");
 
 const PORT = 3000;
 const HOST = "localhost";
 const app = express();
-const flights = require("./lib/seed-data");
 const Flight = require("./lib/flight");
+const LokiStore = store(session);
 
 const toTitleCase = string => {
   return string.split(" ").map(word => {
@@ -24,7 +25,7 @@ const airportCode = typeOfCode => {
           .bail()
           .customSanitizer(input => input.toUpperCase())
           .custom(input => /^[A-Z]{3}$/.test(input))
-          .withMessage(`${typeOfCode[0].toUpperCase() + typeOfCode.slice(1)} airport should be 3 characters.`);
+          .withMessage(`${typeOfCode[0].toUpperCase() + typeOfCode.slice(1)} airport should be 3 characters.`)
 };
 
 const flightInfoValidation = [
@@ -64,24 +65,49 @@ app.use(morgan("common"));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }))
 app.use(session({
+  cookie: {
+    httpOnly: true,
+    maxAge: 31 * 24 * 60 * 60 * 1000,
+    path: "/",
+    secure: false,
+  },
   name: "flight-tracker-session-id",
   resave: false,
   saveUninitialized: true,
   secret: "not-very-secure",
+  store: new LokiStore({}),
 }));
+
 app.use(flash());
+
 app.use((req, res, next) => {
-  res.locals.flash = req.session.flash;
-  delete req.body.flash;
+  let flights = [];
+  
+  if ("flights" in req.session) {
+    console.log(req.session.flights);
+    req.session.flights.forEach(flight => {
+      flights.push(Flight.makeFlight(flight));
+    });
+  }
+
+  req.session.flights = flights;
   next();
 });
+
+app.use((req, res, next) => {
+  res.locals.flash = req.session.flash;
+  delete req.session.flash;
+  next();
+});
+
 
 app.get("/", (req, res) => {
   res.redirect("/flights");
 });
 
 app.get("/flights", (req, res) => {
-  res.render("flights", { flights });
+  console.log(req.session.flights);
+  res.render("flights", { flights: req.session.flights });
 });
 
 app.get("/add-flight", (req, res) => {
@@ -96,7 +122,7 @@ app.post("/flights",
       errors.array().forEach(error => req.flash("error", error.msg));
       res.render("add-flight", { flash: req.flash(), ...req.body });
     } else {
-      flights.push(new Flight(
+      req.session.flights.push(new Flight(
         req.body.departureCode,
         req.body.destinationCode,
         req.body.airline,
@@ -112,17 +138,17 @@ app.post("/flights",
 
 app.get("/flights/:id/edit", (req, res, next) => {
   let id = +req.params.id;
-  let flight = flights.find(flight => flight.id === id);
+  let flight = req.session.flights.find(flight => flight.id === id);
   if (!flight) next(new Error("Not found."));
 
-  res.render("edit-flight", { ...flight });
+  res.render("edit-flight", { flight });
 });
 
 app.post("/flights/:id/edit",
   flightInfoValidation,
   (req, res, next) => {
     let id = +req.params.id;
-    let flight = flights.find(flight => flight.id === id);
+    let flight = req.session.flights.find(flight => flight.id === id);
     if (!flight) {
       next(new Error("Not found."));
     } else {
@@ -131,26 +157,37 @@ app.post("/flights/:id/edit",
         errors.array().forEach(error => req.flash("error", error.msg));
         res.render("edit-flight", {
           flash: req.flash(),
-          ...flight,
+          flight,
         });
       } else {
-        console.log("validation successful");
-        console.log(req.body);
-        for (let input in req.body) {
-          flight[input] = req.body[input];
-        }
+        flight.departureCode = req.body.departureCode;
+        flight.destinationCode = req.body.destinationCode;
+        flight.airline = req.body.airline;
+        flight.flightNumber = req.body.flightNumber;
+        flight.flightTime = req.body.flightTime;
     
         req.flash("success", "The flight details have been changed.");
-        res.redirect("/");
+        res.redirect(`/flights/${id}/edit`);
       }
     }
   }
 );
 
+app.post("/flights/:id/delete", (req, res, next) => {
+  let id = +req.params.id;
+  let flightIndex = req.session.flights.findIndex(flight => flight.id === id);
+  if (flightIndex === -1) {
+    next(new Error("Not found."));
+  } else {
+    req.session.flights.splice(flightIndex, 1);
+    req.flash("success", "The flight has been deleted from your list.");
+    res.redirect("/flights");
+  }
+});
+
 app.use((err, req, res, next_) => {
   res.status(404);
   res.send(err.message);
-  console.log(err);
 });
 
 app.listen(PORT, HOST, () => {

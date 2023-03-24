@@ -11,8 +11,9 @@ html(lang="en-US")
 
     main
       - let kinds = Object.keys(flash || {});
-      ul(class="flash")
-        each kind in kinds
-          each message in flash[kind]
-            li(class=kind)= message
+      if kinds.length > 0
+        ul(class="flash")
+          each kind in kinds
+            each message in flash[kind]
+              li(class=kind)= message
       block main

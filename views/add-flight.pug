@@ -2,7 +2,7 @@ extends layout
 
 block main
   h2 Add Flight
-  form(action="/flights" method="POST" id="add")
+  form(action="/flights" method="POST")
     fieldset(class="controls-1")
       dl(class="departureCode right-padding")
         dt
@@ -15,17 +15,17 @@ block main
         dd
           input(type="text" name="destinationCode" id="destinationCode" value=destinationCode)
     fieldset(class="controls-2")
-      dl(class="airline right-padding")
+      dl(class="half-width right-padding")
         dt
           label(for="airline") Airline
         dd
           input(type="text" name="airline" id="airline" value=airline)
-      dl(class="flightNumber both-padding")
+      dl(class="quarter-width both-padding")
         dt
           label(for="flightNumber") Flight Number
         dd
           input(type="text" name="flightNumber" id="flightNumber" value=flightNumber)
-      dl(class="flightTime left-padding")
+      dl(class="quarter-width left-padding")
         dt
           label(for="flightTime") Flight Time
         dd
